@@ -1,11 +1,11 @@
 import { Component } from "react"
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
+import { Container, Row, Col, Form, Button } from "react-bootstrap"
 const apiLink = "https://striveschool-api.herokuapp.com/api/comments/"
 const authorizationLink = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYmIzMjc4Y2RkZjAwMTU1ZDY3OWYiLCJpYXQiOjE3NTIyMTg0MTgsImV4cCI6MTc1MzQyODAxOH0.lkfAgPfvfUDCpsrHOcn2YILZ-vu_ug21gI7fwA-pGcE`
 
 const initialReviewForm = {
   reviewComment: "",
-  reviewRate: 0,
+  reviewRate: "0",
 }
 
 class AddComment extends Component {
@@ -44,7 +44,7 @@ class AddComment extends Component {
         <Container>
           <Row>
             <Col>
-              <Form>
+              <Form onSubmit={this.submitReview}>
                 <Form.Group>
                   <Form.Label>Leave a review:</Form.Label>
                   <Form.Control
@@ -61,6 +61,30 @@ class AddComment extends Component {
                     }}
                   ></Form.Control>
                 </Form.Group>
+                <Form.Group>
+                  <Form.Label>Rate the book from 1 to 5</Form.Label>
+                  <Form.Select
+                    aria-label="book rating"
+                    value={this.state.reviewForm.reviewRate}
+                    onChange={(e) => {
+                      this.setState({
+                        formValues: {
+                          ...this.state.reviewForm,
+                          reviewRate: e.target.value,
+                        },
+                      })
+                    }}
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Form.Select>
+                </Form.Group>
+                <Button variant="success" type="submit" className="mt-3">
+                  Submit your review!
+                </Button>
               </Form>
             </Col>
           </Row>
