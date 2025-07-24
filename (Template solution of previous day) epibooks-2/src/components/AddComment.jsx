@@ -41,12 +41,19 @@ class AddComment extends Component {
   render() {
     return (
       <>
-        <Container>
+        <Container className="mt-3 border-1 bg-danger text-light p-3 rounded-3">
+          <Row>
+            <Col>
+              <h2>Rate our books here:</h2>
+            </Col>
+          </Row>
           <Row>
             <Col>
               <Form onSubmit={this.submitReview}>
                 <Form.Group>
-                  <Form.Label>Leave a review:</Form.Label>
+                  <Form.Label className="fst-italic">
+                    Leave a review:
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Type here..."
@@ -61,8 +68,10 @@ class AddComment extends Component {
                     }}
                   ></Form.Control>
                 </Form.Group>
-                <Form.Group>
-                  <Form.Label>Rate the book from 1 to 5</Form.Label>
+                <Form.Group className="mt-3">
+                  <Form.Label className="fst-italic">
+                    Rate the book from 1 to 5
+                  </Form.Label>
                   <Form.Select
                     aria-label="book rating"
                     value={this.state.reviewForm.reviewRate}
