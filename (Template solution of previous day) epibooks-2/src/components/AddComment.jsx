@@ -5,7 +5,7 @@ const authorizationLink = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiO
 
 const initialReviewForm = {
   reviewComment: "",
-  reviewRate: "0",
+  reviewRate: "1",
 }
 
 class AddComment extends Component {
@@ -18,8 +18,9 @@ class AddComment extends Component {
     fetch(apiLink + this.props.bookId, {
       method: "POST",
       body: JSON.stringify(this.state.reviewForm),
-      header: {
+      headers: {
         authorization: authorizationLink,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
@@ -68,6 +69,7 @@ class AddComment extends Component {
                     }}
                   ></Form.Control>
                 </Form.Group>
+
                 <Form.Group className="mt-3">
                   <Form.Label className="fst-italic">
                     Rate the book from 1 to 5
@@ -77,7 +79,7 @@ class AddComment extends Component {
                     value={this.state.reviewForm.reviewRate}
                     onChange={(e) => {
                       this.setState({
-                        formValues: {
+                        reviewForm: {
                           ...this.state.reviewForm,
                           reviewRate: e.target.value,
                         },
@@ -91,6 +93,7 @@ class AddComment extends Component {
                     <option>5</option>
                   </Form.Select>
                 </Form.Group>
+
                 <Button variant="success" type="submit" className="mt-3">
                   Submit your review!
                 </Button>
