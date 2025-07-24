@@ -3,19 +3,20 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap"
 const apiLink = "https://striveschool-api.herokuapp.com/api/comments/"
 const authorizationLink = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYmIzMjc4Y2RkZjAwMTU1ZDY3OWYiLCJpYXQiOjE3NTIyMTg0MTgsImV4cCI6MTc1MzQyODAxOH0.lkfAgPfvfUDCpsrHOcn2YILZ-vu_ug21gI7fwA-pGcE`
 
-const initialReviewForm = {
-  reviewComment: "",
-  reviewRate: "1",
-}
-
 class AddComment extends Component {
+  initialReviewForm = {
+    comment: "",
+    rate: "1",
+    elementId: this.props.idBook,
+  }
+
   state = {
-    reviewForm: initialReviewForm,
+    reviewForm: this.initialReviewForm,
   }
 
   submitReview = (e) => {
     e.preventDefault()
-    fetch(apiLink + this.props.bookId, {
+    fetch(apiLink, {
       method: "POST",
       body: JSON.stringify(this.state.reviewForm),
       headers: {
@@ -27,7 +28,7 @@ class AddComment extends Component {
         if (response.ok) {
           alert("Review saved!")
           this.setState({
-            reviewForm: initialReviewForm,
+            reviewForm: this.initialReviewForm,
           })
         } else {
           throw new Error("Error has occured during submit of the review")
@@ -58,12 +59,12 @@ class AddComment extends Component {
                   <Form.Control
                     type="text"
                     placeholder="Type here..."
-                    value={this.state.reviewForm.reviewComment}
+                    value={this.state.reviewForm.comment}
                     onChange={(e) => {
                       this.setState({
                         reviewForm: {
                           ...this.state.reviewForm,
-                          reviewComment: e.target.value,
+                          comment: e.target.value,
                         },
                       })
                     }}
@@ -76,12 +77,12 @@ class AddComment extends Component {
                   </Form.Label>
                   <Form.Select
                     aria-label="book rating"
-                    value={this.state.reviewForm.reviewRate}
+                    value={this.state.reviewForm.rate}
                     onChange={(e) => {
                       this.setState({
                         reviewForm: {
                           ...this.state.reviewForm,
-                          reviewRate: e.target.value,
+                          rate: e.target.value,
                         },
                       })
                     }}

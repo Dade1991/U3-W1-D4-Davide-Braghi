@@ -14,6 +14,7 @@ class CommentArea extends Component {
     fetch(apiLink + this.props.bookId, {
       headers: {
         authorization: authorizationLink,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
@@ -41,7 +42,7 @@ class CommentArea extends Component {
             <ListGroup.Item key={review._id}> {review.comment}</ListGroup.Item>
           ))}
         </ListGroup>
-        <AddComment />
+        <AddComment idBook={this.props.bookId} />
         {/* <CommentList /> */}
       </>
     )
